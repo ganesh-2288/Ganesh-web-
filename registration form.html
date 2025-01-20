@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <script>
+    src =
+      "https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js";
+  </script>
+  <body bgcolor="light blue">
+    <font  color="red">
+    <div ng-app="MyApp" ng-controller="MyCtrl" align="center">
+        <u><h1 align="center">REGISTRATION FORM</h1></u>
+      <ul>
+      Name : <input type="textbox" ng-model="name"><br /><br />
+      Age : <input type="textbox" /><br /><br />
+      Email : <input type="email" /><br /><br />
+      Password: <input type="password" /><br /><br />
+      </ul>
+      <button ng-click="submit()">Submit</button>
+    </div>
+    <script>
+      var app = angular.module("MyApp", []);
+      app.controller("MyCtrl", function ($scope) {
+        $scope.name ="";
+        $scope.submit = function() {
+            alert("Registration Successful");
+            }
+      });
+    </script>
+  </body>
+</html>
