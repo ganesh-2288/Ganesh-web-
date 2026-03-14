@@ -1,70 +1,262 @@
-# Getting Started with Create React App
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Grammar AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #6366f1;
+      --secondary: #a855f7;
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --text-main: #ffffff;
+      --text-dim: rgba(255, 255, 255, 0.6);
+    }
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+    * {
+      box-sizing: border-box;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-## Available Scripts
+    body {
+      background-color: #0f172a; 
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text-main);
+      overflow: hidden; 
+    }
 
-In the project directory, you can run:
+   
+    .blob {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      filter: blur(80px);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0.5;
+      animation: move 20s infinite alternate;
+    }
 
-### `npm start`
+    .blob-2 {
+      background: #3b82f6;
+      width: 300px;
+      height: 300px;
+      right: 10%;
+      top: 10%;
+      animation-delay: -5s;
+    }
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    @keyframes move {
+      from { transform: translate(-20%, -20%) rotate(0deg); }
+      to { transform: translate(20%, 20%) rotate(360deg); }
+    }
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    .container {
+      width: 95%;
+      max-width: 480px;
+      padding: 3rem;
+      border-radius: 32px;
+      background: var(--glass);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
 
-### `npm test`
+    h2 {
+      margin-top: 0;
+      font-size: 1.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    textarea {
+      width: 100%;
+      padding: 1.25rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      font-family: inherit;
+      resize: none;
+      outline: none;
+      color: white;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
 
-### `npm run build`
+    textarea:focus {
+      border-color: var(--primary);
+      background: rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 2rem;
+    }
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    button {
+      padding: 14px;
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      background: var(--glass);
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    button:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
 
-### `npm run eject`
+    .btn-check {
+      background: var(--primary);
+      border: none;
+    }
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    .btn-check:hover {
+      background: #4f46e5;
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+    }
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    .result-area {
+      padding: 1.25rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed var(--glass-border);
+      text-align: left;
+    }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    .result-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: block;
+    }
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    #result {
+      margin: 0;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
 
-## Learn More
+  <div class="blob"></div>
+  <div class="blob blob-2"></div>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  <div class="container">
+    <h2><i class="fas fa-wand-magic-sparkles" style="color: var(--primary)"></i> AI Grammar Check</h2>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    <textarea id="textInput" rows="4" cols="50" oninput="checkGrammar()" placeholder="Speak or type..."></textarea>
 
-### Code Splitting
+    <div class="button-group">
+      <button onclick="startListening()">
+        <i class="fas fa-microphone"></i> Voice
+      </button>
+      <button class="btn-check" onclick="checkGrammar()">
+        Check Text
+      </button>
+    </div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    <div class="result-area">
+      <span class="result-label">Polished Output</span>
+      <p id="result" style="margin-top:20px; font-size:18px;">Your corrected text will appear here...</p>
+        <hr style="margin:15px 0; border-color:rgba(255,255,255,0.1);">
 
-### Analyzing the Bundle Size
+        <span class="result-label">Corrected Sentence</span>
+        <p id="correctedText" style="color:#4ade80; font-weight:600;"></p>
+    </div>
+    <p id="score" style="font-weight:bold; margin-top:10px;"></p>
+  </div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  <script>
+    // Logic remains functional and same as previous
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.continuous = true;
+    recognition.lang = "en-US";
 
-### Making a Progressive Web App
+    recognition.onresult = function(event) {
+      const transcript = event.results[event.results.length - 1][0].transcript;
+      document.getElementById("textInput").value += " " + transcript;
+      checkGrammar(); 
+    };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    function startListening() {
+      recognition.start();
+    }
 
-### Advanced Configuration
+    async function checkGrammar() {
+  const text = document.getElementById("textInput").value;
+  if (!text) return;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  const response = await fetch("http://localhost:5000/check-grammar", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text })
+  });
 
-### Deployment
+  const data = await response.json();
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  let highlightedText = text;
 
-### `npm run build` fails to minify
+  data.matches.reverse().forEach(match => {
+    const start = match.offset;
+    const end = start + match.length;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    highlightedText =
+      highlightedText.substring(0, start) +
+      `<span style="color:red;font-weight:bold;">` +
+      highlightedText.substring(start, end) +
+      `</span>` +
+      highlightedText.substring(end);
+  });
+
+  document.getElementById("result").innerHTML = highlightedText;
+  document.getElementById("correctedText").innerText = data.correctedText;
+
+  // Speaking Score
+  const wordCount = text.trim().split(/\s+/).length;
+  const mistakes = data.matches.length;
+
+  let score = 100;
+  if (wordCount > 0) {
+    score = Math.max(0, ((wordCount - mistakes) / wordCount) * 100);
+  }
+
+  document.getElementById("score").innerText =
+    "Speaking Score: " + score.toFixed(0) + "%";
+}
+  </script>
+
+</body>
+</html>
